@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Carter;
+using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,8 @@ namespace API.Extensions
             services.AddAuthentication();
             services.AddAuthorization();
 
-
+            services.AddCarter();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
             return services;

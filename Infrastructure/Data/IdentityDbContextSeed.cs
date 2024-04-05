@@ -9,7 +9,7 @@ namespace Infrastructure.Data
         {
             if (!userManager.Users.Any())
             {
-                User user = new User
+                User user = new()
                 {
                     DisplayName = "Rahul",
                     Email = "rahul@test.com",
