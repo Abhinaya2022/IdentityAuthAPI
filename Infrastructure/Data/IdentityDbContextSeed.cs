@@ -5,11 +5,11 @@ namespace Infrastructure.Data
 {
     public class IdentityDbContextSeed
     {
-        public static async Task SeedUserAsync(UserManager<User> userManager)
+        public static async Task SeedUserAsync(UserManager<AppUser> userManager)
         {
             if (!userManager.Users.Any())
             {
-                User user = new()
+                AppUser user = new()
                 {
                     DisplayName = "Rahul",
                     Email = "rahul@test.com",

@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middlewares;
 using Carter;
 using Core.Entities;
 using Infrastructure.Data;
@@ -13,34 +14,22 @@ internal class Program
 
         // Add services to the container.
         builder.Services.AddApplicationServices(builder.Configuration);
+        builder.Services.AddIdentityService(builder.Configuration);
         builder.Services.AddSwaggerDocumentation();
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("CorsPolicy", builder =>
-            {
-                builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-            });
 
-        });
 
 
         var app = builder.Build();
-
         // Configure the HTTP request pipeline.
-        app.UseSwaggerDocumentation();
-        app.UseCors("CorsPolicy");
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.UseHttpsRedirection();
+        app.UseMiddleware<ApiExceptionMiddleware>();
         app.MapCarter();
-        
-
+        app.UseApplicationServices();
 
 
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
         var identityContext = services.GetRequiredService<IdentityDbContext>();
-        var userManager = services.GetRequiredService<UserManager<User>>();
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
         var logger = services.GetRequiredService<ILogger<Program>>();
         try
         {

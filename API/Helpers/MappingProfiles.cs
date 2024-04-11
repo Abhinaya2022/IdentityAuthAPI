@@ -8,7 +8,15 @@ namespace API.Helpers
     {
         public MappingProfiles()
         {
-            CreateMap<User, UserDto>();
+            CreateMap<AppUser, UserDto>();
+            CreateMap<AppUser, UserReturnDto>();
+            CreateMap<AppUser, AddressDto>()
+                                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.Address.FirstName))
+                                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.Address.LastName))
+                                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Address.State))
+                                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Address.Street))
+                                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
+                                .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.Address.ZipCode));
             CreateMap<Address, AddressDto>().ReverseMap();
 
         }

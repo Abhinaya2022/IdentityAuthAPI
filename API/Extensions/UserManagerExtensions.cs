@@ -7,7 +7,7 @@ namespace API.Extensions
 {
     public static class UserManagerExtensions
     {
-        public static async Task<User> FindUserByEmailWithAddress(this UserManager<User> manager, string email)
+        public static async Task<AppUser> FindUserByEmailWithAddress(this UserManager<AppUser> manager, string email)
         {
             return await manager.Users.Include(x => x.Address).FirstOrDefaultAsync(x => x.Email == email) ?? null;
         }

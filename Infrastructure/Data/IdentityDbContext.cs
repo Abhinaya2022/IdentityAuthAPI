@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class IdentityDbContext(DbContextOptions<IdentityDbContext> options) : IdentityDbContext<User>(options)
+    public class IdentityDbContext(DbContextOptions<IdentityDbContext> options) : IdentityDbContext<AppUser>(options)
     {
         protected override void OnModelCreating(ModelBuilder builder)
         {
