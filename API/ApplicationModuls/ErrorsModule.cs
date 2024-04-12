@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.ApplicationModuls
 {
-    public class ErrorsModule : CarterModule    {
+    public class ErrorsModule : CarterModule
+    {
 
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
