@@ -1,0 +1,19 @@
+.logo {
+  cursor: pointer;
+  width: 100px; /* Adjust the width and height as needed */
+  height: 100px;
+  border-radius: 50%; /* Makes the element circular */
+  overflow: hidden; /* Ensures the image stays within the circular shape */
+}
+
+.logo img {
+  width: 100%; /* Makes sure the image fills the circular container */
+  height: auto; /* Maintains aspect ratio */
+}
+
+a {
+  text-decoration: none;
+  &.active {
+    color: orange;
+  }
+}

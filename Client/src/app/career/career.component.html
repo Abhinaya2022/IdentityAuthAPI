@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      .header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+      }
+      .main-content {
+        padding: 20px;
+      }
+      .job-listing {
+        background-color: #fff;
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .job-title {
+        font-size: 24px;
+        color: #333;
+      }
+      .job-description {
+        font-size: 16px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Careers at Our Company</h1>
+      <p>Join our team and help us grow!</p>
+    </div>
+
+    <div class="main-content">
+      <div class="job-listing">
+        <h2 class="job-title">Front-end Developer</h2>
+        <p class="job-description">
+          We are looking for a skilled front-end developer to join our team. You
+          should be proficient in HTML, CSS, and JavaScript.
+        </p>
+        <!-- Add more details or a link to apply -->
+      </div>
+
+      <!-- Repeat the job-listing div for each job opening -->
+
+      <div class="contact-form">
+		<h2>Contact Us</h2>
+        <form action="submit_form.php" method="post">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            required
+          ></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

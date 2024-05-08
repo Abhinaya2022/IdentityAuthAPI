@@ -1,0 +1,23 @@
+<div class="form-floating mb-3">
+  <input
+    [type]="type"
+    [placeholder]="label"
+    [formControl]="control"
+    class="form-control"
+    [ngClass]="
+      control.touched || control.dirty
+        ? control.invalid
+          ? 'is-invalid'
+          : 'is-valid'
+        : null
+    "
+  />
+  <label for="floatingInput">{{ label }}</label>
+  <div class="invalid-feedback">
+    <div *ngIf="control.hasError('required')">{{ label }} is required</div>
+    <div *ngIf="control.hasError('email')">Invalid Email</div>
+    <div *ngIf="control.hasError('pattern')">
+      {{ label }} not enough complex
+    </div>
+  </div>
+</div>

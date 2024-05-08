@@ -1,4 +1,5 @@
-﻿using API.Dto_s;
+﻿using System.Security.Claims;
+using API.Dto_s;
 using API.Errors;
 using API.Extensions;
 using AutoMapper;
@@ -6,7 +7,6 @@ using AutoMapper.QueryableExtensions;
 using Carter;
 using Core.Contracts;
 using Core.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +42,9 @@ namespace API.ApplicationModuls
                         DisplayName = registerDto.DisplayName,
                     };
                     var isRegistered = await userManager.CreateAsync(user, registerDto.Password);
-                    dynamic result = new ApiErrorResponse(500);
+                    dynamic result = Results.BadRequest(
+                        new ApiErrorResponse(400, isRegistered.Errors.FirstOrDefault()?.Description)
+                    );
                     if (isRegistered.Succeeded)
                     {
                         result = new UserDto
@@ -60,10 +62,9 @@ namespace API.ApplicationModuls
                     "/users",
                     async (UserManager<AppUser> userManager) =>
                     {
-                        var users = await userManager
-                                                               .Users.
-                                                                      ProjectTo<UserReturnDto>(_mapper.ConfigurationProvider)
-                                                               .ToListAsync();
+                        var users = await userManager.Users
+                            .ProjectTo<UserReturnDto>(_mapper.ConfigurationProvider)
+                            .ToListAsync();
 
                         dynamic result =
                             users.Count != 0 ? users : Results.NotFound(new ApiErrorResponse(404));
@@ -89,7 +90,7 @@ namespace API.ApplicationModuls
                             await userManager.UpdateAsync(user);
                         }
 
-                        return new ApiErrorResponse(404);
+                        return new ApiErrorResponse(200);
                     }
                 )
                 .RequireAuthorization();
@@ -115,18 +116,30 @@ namespace API.ApplicationModuls
 
             app.MapPost(
                 "/login",
-                async (UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, LoginDto loginDto) =>
+                async (
+                    UserManager<AppUser> userManager,
+                    SignInManager<AppUser> signInManager,
+                    LoginDto loginDto
+                ) =>
                 {
-                    dynamic response = new ApiErrorResponse(401, "Email is invalid!");
+                    dynamic response = Results.BadRequest(
+                        new ApiErrorResponse(401, "Email is invalid!")
+                    );
 
                     var user = await userManager.FindByEmailAsync(loginDto.Email);
 
                     if (user != null)
                     {
-                        var result = await signInManager.CheckPasswordSignInAsync(user, loginDto.Password, true);
+                        var result = await signInManager.CheckPasswordSignInAsync(
+                            user,
+                            loginDto.Password,
+                            true
+                        );
 
                         if (!result.Succeeded)
-                            response = new ApiErrorResponse(401, "Password is invalid!");
+                            response = Results.BadRequest(
+                                new ApiErrorResponse(401, "Password is invalid!")
+                            );
                         else
                             response = new UserDto
                             {

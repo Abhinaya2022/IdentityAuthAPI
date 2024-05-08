@@ -1,0 +1,30 @@
+.container {
+  width: 500px;
+  height: 500px;
+  border-radius: 8px;
+  padding-top: 1%;
+  color: rgb(136, 36, 230);
+  background-image: linear-gradient(45deg, #101010, #f79033);
+}
+.signupform {
+  margin-top: 100px;
+}
+button {
+  margin-right: 10%;
+  float: right;
+}
+
+.label {
+  margin-left: 20%;
+}
+
+.heading {
+  text-align: center;
+  color: white;
+  margin-top: revert;
+}
+
+.btn-outline-secondary {
+  border: none;
+  color: whitesmoke;
+}

@@ -1,0 +1,54 @@
+<header
+  class="d-flex flex-md-row align-items-center justify-content-between p-1 px-4 mb-0 border-bottom shadow-sm"
+>
+  <img
+    src="assets/images/AudreeLogo.png"
+    alt="logo"
+    class="logo"
+    style="max-height: 70px"
+    routerLink="/home"
+  />
+
+  <nav class="my-2 text-uppercase fs-5">
+    <a
+      *ngFor="let item of navbarMenus"
+      class="p-2"
+      [routerLink]="item.path"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ item.name }}</a
+    >
+  </nav>
+  <div class="d-flex align-items-center">
+    <ng-container> 
+      <div
+        *ngIf="service.user$ | async as User"
+        class="dropdown ms-3 me-5"
+        style="cursor: pointer"
+        dropdown
+      >
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+          </button>
+          <button mat-menu-item (click)="service.logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </div>
+    </ng-container>
+  </div>
+</header>

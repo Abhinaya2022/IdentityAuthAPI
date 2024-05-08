@@ -1,0 +1,32 @@
+<ng-container>
+  <div class="container my-5">
+    <h4 class="heading">Welcome</h4>
+    <form class="form-group" [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="signupform my-4 ms-5 me-5">
+        <app-input-text
+          [type]="'text'"
+          [label]="'Email'"
+          formControlName="email"
+        ></app-input-text>
+
+        <app-input-text
+          [type]="'text'"
+          [label]="'Display Name'"
+          formControlName="displayName"
+        ></app-input-text>
+
+        <app-input-text
+          [type]="'password'"
+          [label]="'Password'"
+          formControlName="password"
+        ></app-input-text>
+      </div>
+      <a routerLink="/account/login" class="btn btn-outline-secondary ms-5 my-3"
+        >Have an Account?</a
+      >
+      <button class="btn btn-success my-3" [disabled]="registerForm.invalid">
+        Sign-Up
+      </button>
+    </form>
+  </div>
+</ng-container>

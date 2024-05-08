@@ -11,12 +11,15 @@ namespace API.Extensions
     public static class ApplicationServiceExtensions
     {
         /// <summary>
-        /// Application services 
+        /// Application services
         /// </summary>
         /// <param name="services"></param>
         /// <param name="config"></param>
         /// <returns></returns>
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddApplicationServices(
+            this IServiceCollection services,
+            IConfiguration config
+        )
         {
             services.AddEndpointsApiExplorer();
             services.AddDbContext<IdentityDbContext>(options =>
@@ -25,14 +28,15 @@ namespace API.Extensions
             });
 
             services.AddCors(options =>
-             {
-                 options.AddPolicy("CorsPolicy", builder =>
-                 {
-                     builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                 });
-
-             });
-
+            {
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder =>
+                    {
+                        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                    }
+                );
+            });
 
             services.AddTransient<ITokenService, TokenService>();
 
@@ -51,14 +55,13 @@ namespace API.Extensions
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
-
+            services.AddControllers();
 
             services.AddCarter();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }
-
 
         /// <summary>
         /// Application pipes
@@ -67,9 +70,8 @@ namespace API.Extensions
         /// <returns></returns>
         public static IApplicationBuilder UseApplicationServices(this IApplicationBuilder app)
         {
-
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
-            app.UseSwaggerDocumentation();
+            app.UseSwaggerDocumentation();                    
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();

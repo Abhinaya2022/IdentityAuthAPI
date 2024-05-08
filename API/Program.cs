@@ -17,14 +17,12 @@ internal class Program
         builder.Services.AddIdentityService(builder.Configuration);
         builder.Services.AddSwaggerDocumentation();
 
-
-
         var app = builder.Build();
         // Configure the HTTP request pipeline.
         app.UseMiddleware<ApiExceptionMiddleware>();
-        app.MapCarter();
         app.UseApplicationServices();
-
+        app.MapCarter();
+        app.MapControllers();
 
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
@@ -35,7 +33,6 @@ internal class Program
         {
             await identityContext.Database.MigrateAsync();
             await IdentityDbContextSeed.SeedUserAsync(userManager);
-
         }
         catch (Exception ex)
         {
@@ -45,4 +42,3 @@ internal class Program
         app.Run();
     }
 }
-
