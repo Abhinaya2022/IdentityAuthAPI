@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.returnUrl =
-      this._activateRoute.snapshot.queryParams['returnUrl'] ?? '/home';
+      this._activateRoute.snapshot.queryParams['returnUrl'] ?? '/';
   }
 
   get email() {

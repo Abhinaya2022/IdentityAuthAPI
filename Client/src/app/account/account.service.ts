@@ -1,4 +1,4 @@
-import { BehaviorSubject, ReplaySubject, map, of } from 'rxjs';
+import { ReplaySubject, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
@@ -27,9 +27,7 @@ export class AccountService {
           if (user.token) {
             this.setUserToLocalStorage(user);
             this.currentUserSource.next(user);
-            this._cookieService.set('token', user.token, {
-              expires: 30,
-            });
+            this._cookieService.set('token', user.token);
             return user;
           } else {
             return null;
@@ -53,9 +51,7 @@ export class AccountService {
           if (user) {
             this.currentUserSource.next(user);
             this.setUserToLocalStorage(user);
-            this._cookieService.set('token', user.token, {
-              expires: 30,
-            });
+            this._cookieService.set('token', user.token);
             return user;
           } else {
             return null;
@@ -67,9 +63,7 @@ export class AccountService {
   logout() {
     localStorage.clear();
     this.currentUserSource.next(null);
-    this._cookieService.set('token', '', {
-      expires: 30,
-    });
+    this._cookieService.deleteAll('/', 'http://localhost:4300/home');
     this._router.navigate(['/account/login']);
   }
 
@@ -80,9 +74,7 @@ export class AccountService {
           if (user.token) {
             this.setUserToLocalStorage(user);
             this.currentUserSource.next(user);
-            this._cookieService.set('token', user.token, {
-              expires: 30,
-            });
+            this._cookieService.set('token', user.token);
             return user;
           } else {
             return null;

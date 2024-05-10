@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './core/_interceptors/error.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { ErrorInterceptor } from './core/_interceptors/error.interceptor';
       useClass: ErrorInterceptor,
       multi: true,
     },
+    CookieService,
   ],
   bootstrap: [AppComponent],
 })

@@ -10,7 +10,7 @@ export class NavbarComponent {
   constructor(public service: AccountService) {}
 
   navbarMenus: any = [
-    { name: 'Home', path: 'home' },
+    { name: 'Home', path: '' },
     { name: 'Career', path: 'career' },
   ];
 }

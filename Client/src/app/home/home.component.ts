@@ -6,9 +6,4 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
-  constructor(private _route: ActivatedRoute) {}
-  ngOnInit(): void {
-    this._route.data.subscribe();
-  }
-}
+export class HomeComponent {}

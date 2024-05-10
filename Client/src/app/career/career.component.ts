@@ -6,9 +6,4 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './career.component.html',
   styleUrls: ['./career.component.css'],
 })
-export class CareerComponent implements OnInit {
-  constructor(private _route: ActivatedRoute) {}
-  ngOnInit(): void {
-    this._route.data.subscribe();
-  }
-}
+export class CareerComponent {}

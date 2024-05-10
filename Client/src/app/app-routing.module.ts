@@ -3,29 +3,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { authGuard } from './core/_guards/auth.guard';
 import { CareerComponent } from './career/career.component';
-import { accountResolver } from './account/account.resolver';
+import { loginOrRegisterGuard } from './core/_guards/login-or-register.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    runGuardsAndResolvers: 'always',
-    canActivate: [authGuard],
+    path: '',
     component: HomeComponent,
     data: { breadcrumb: 'Home' },
-    resolve: { user: accountResolver },
   },
   {
     path: 'career',
     canActivate: [authGuard],
     component: CareerComponent,
-    resolve: { user: accountResolver },
   },
   {
     path: 'account',
+    canActivate:[loginOrRegisterGuard],
     loadChildren: () =>
       import('./account/account.module').then((x) => x.AccountModule),
   },
-  { path: '**', redirectTo: '/account/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({

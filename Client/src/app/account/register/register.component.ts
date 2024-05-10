@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
     };
     this._service.register(user).subscribe((user) => {
       if (user) {
-        this._router.navigateByUrl('/home');
+        this._router.navigateByUrl('/');
       }
     });
   }
