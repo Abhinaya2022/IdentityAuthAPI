@@ -17,6 +17,7 @@ public class ApiErrorResponse
         {
             400 => "A bad request, you have made",
             401 => "Autherized, you are not",
+            403 => "Forbidden",
             404 => "Resource found, it was not",
             500
                 => "Errors are the path to the dark side. Errors lead to anger. Anger leads to hate. Hate leads to career change",

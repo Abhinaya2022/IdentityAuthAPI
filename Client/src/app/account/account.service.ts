@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../shared/Models/Account/user';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,26 +11,16 @@ import { CookieService } from 'ngx-cookie-service';
 export class AccountService {
   url = environment.baseUrl;
   private currentUserSource = new ReplaySubject<User | null>(1);
-  user$ = this.currentUserSource.asObservable();
+  currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(
-    private _http: HttpClient,
-    private _router: Router,
-    private _cookieService: CookieService
-  ) {}
+  constructor(private _http: HttpClient, private _router: Router) {}
 
   login(user: any) {
     return this._http.post<User>(this.url + 'login', user).pipe(
       map((user: any) => {
         if (user) {
-          if (user.token) {
-            this.setUserToLocalStorage(user);
-            this.currentUserSource.next(user);
-            this._cookieService.set('token', user.token);
-            return user;
-          } else {
-            return null;
-          }
+          localStorage.setItem('token', user.token);
+          this.currentUserSource.next(user);
         }
       })
     );
@@ -45,15 +34,15 @@ export class AccountService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
     return this._http
-      .get<User>(this.url + 'api/account', { headers: headers })
+      .get<User>(this.url + 'get-current-user', { headers: headers })
       .pipe(
         map((user: User) => {
           if (user) {
+            localStorage.setItem('token', user.token);
             this.currentUserSource.next(user);
-            this.setUserToLocalStorage(user);
-            this._cookieService.set('token', user.token);
             return user;
           } else {
+            this.currentUserSource.next(null);
             return null;
           }
         })
@@ -61,9 +50,8 @@ export class AccountService {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('token');
     this.currentUserSource.next(null);
-    this._cookieService.deleteAll('/', 'http://localhost:4300/home');
     this._router.navigate(['/account/login']);
   }
 
@@ -71,22 +59,10 @@ export class AccountService {
     return this._http.post<User>(this.url + 'register', registerDto).pipe(
       map((user: any) => {
         if (user) {
-          if (user.token) {
-            this.setUserToLocalStorage(user);
-            this.currentUserSource.next(user);
-            this._cookieService.set('token', user.token);
-            return user;
-          } else {
-            return null;
-          }
+          localStorage.setItem('token', user.token);
+          this.currentUserSource.next(user);
         }
       })
     );
-  }
-
-  setUserToLocalStorage(user: User) {
-    localStorage.setItem('token', user.token);
-    localStorage.setItem('email', user.email ?? '');
-    localStorage.setItem('displayName', user.displayName ?? '');
   }
 }

@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.get('email')?.value,
       password: this.loginForm.get('password')?.value,
     };
-    this._service.login(logindto).subscribe((user) => {
-      if (user) this._router.navigateByUrl(this.returnUrl);
+    this._service.login(logindto).subscribe({
+      next: (_) => this._router.navigateByUrl(this.returnUrl),
+      error: (error) => console.log(error),
     });
   }
 }

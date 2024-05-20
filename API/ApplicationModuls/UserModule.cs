@@ -16,12 +16,30 @@ namespace API.ApplicationModuls
     public class UserModule(IMapper mapper, ITokenService token) : CarterModule
     {
         private readonly IMapper _mapper = mapper;
-        private readonly ITokenService _token = token;
 
         public override void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapGet(
-                "/isemailexists",
+                "get-current-user",
+                async (UserManager<AppUser> userManager, ClaimsPrincipal claimsPrincipal) =>
+                {
+                    string email = claimsPrincipal.GetEmail();
+
+                    var user = await userManager.FindByEmailAsync(email);
+
+                    if (user == null) return Results.BadRequest(new ApiErrorResponse(401));
+
+                    return Results.Ok(new UserDto()
+                    {
+                        DisplayName = user.DisplayName,
+                        Email = user.Email,
+                        Token = token.CreateToken(user)
+                    });
+                }
+            ).RequireAuthorization();
+
+            app.MapGet(
+                "is-email-exists",
                 async (UserManager<AppUser> userManager, [FromQuery] string email) =>
                 {
                     var user = await userManager.FindByEmailAsync(email);
@@ -42,19 +60,23 @@ namespace API.ApplicationModuls
                         DisplayName = registerDto.DisplayName,
                     };
                     var isRegistered = await userManager.CreateAsync(user, registerDto.Password);
-                    dynamic result = Results.BadRequest(
-                        new ApiErrorResponse(400, isRegistered.Errors.FirstOrDefault()?.Description)
-                    );
+
                     if (isRegistered.Succeeded)
                     {
-                        result = new UserDto
+                        var isRoleAdded = await userManager.AddToRoleAsync(user, "Member");
+                        if (isRoleAdded.Succeeded)
                         {
-                            Email = user.Email,
-                            DisplayName = user.DisplayName,
-                            Token = _token.CreateToken(user)
-                        };
+                            return Results.Ok(
+                                new UserDto
+                                {
+                                    Email = user.Email,
+                                    DisplayName = user.DisplayName,
+                                    Token = token.CreateToken(user)
+                                });
+                        }
                     }
-                    return result;
+                    return Results
+                            .BadRequest(new ApiErrorResponse(400, isRegistered.Errors.FirstOrDefault()?.Description));
                 }
             );
 
@@ -70,11 +92,10 @@ namespace API.ApplicationModuls
                             users.Count != 0 ? users : Results.NotFound(new ApiErrorResponse(404));
                         return result;
                     }
-                )
-                .RequireAuthorization();
+                ).RequireAuthorization();
 
             app.MapPost(
-                    "/addaddress",
+                    "/add-address",
                     async (
                         UserManager<AppUser> userManager,
                         HttpContext context,
@@ -92,11 +113,10 @@ namespace API.ApplicationModuls
 
                         return new ApiErrorResponse(200);
                     }
-                )
-                .RequireAuthorization();
+                ).RequireAuthorization();
 
             app.MapGet(
-                    "/getaddress",
+                    "/get-address",
                     async (UserManager<AppUser> userManager, HttpContext context) =>
                     {
                         dynamic response = new ApiErrorResponse(404);
@@ -111,8 +131,7 @@ namespace API.ApplicationModuls
 
                         return response;
                     }
-                )
-                .RequireAuthorization();
+                ).RequireAuthorization();
 
             app.MapPost(
                 "/login",
@@ -122,11 +141,10 @@ namespace API.ApplicationModuls
                     LoginDto loginDto
                 ) =>
                 {
-                    dynamic response = Results.BadRequest(
-                        new ApiErrorResponse(401, "Email is invalid!")
-                    );
+                    if (string.IsNullOrEmpty(loginDto.Email)) return Results.BadRequest(new ApiErrorResponse(401, "Email is invalid!"));
 
                     var user = await userManager.FindByEmailAsync(loginDto.Email);
+
 
                     if (user != null)
                     {
@@ -137,19 +155,21 @@ namespace API.ApplicationModuls
                         );
 
                         if (!result.Succeeded)
-                            response = Results.BadRequest(
-                                new ApiErrorResponse(401, "Password is invalid!")
-                            );
+                        {
+                            return Results.BadRequest(new ApiErrorResponse(401, "Password is invalid!"));
+                        }
                         else
-                            response = new UserDto
+                        {
+                            return Results.Ok(new UserDto
                             {
                                 Email = user.Email,
                                 DisplayName = user.DisplayName,
-                                Token = _token.CreateToken(user),
-                            };
+                                Token = token.CreateToken(user),
+                            });
+                        }
                     }
 
-                    return response;
+                    return Results.BadRequest();
                 }
             );
         }

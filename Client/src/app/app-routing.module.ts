@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    canActivate:[loginOrRegisterGuard],
+    canActivate: [loginOrRegisterGuard],
     loadChildren: () =>
       import('./account/account.module').then((x) => x.AccountModule),
   },

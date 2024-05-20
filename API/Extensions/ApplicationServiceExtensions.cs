@@ -22,6 +22,7 @@ namespace API.Extensions
         )
         {
             services.AddEndpointsApiExplorer();
+            
             services.AddDbContext<IdentityDbContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("IdentityConnection"));
@@ -72,10 +73,10 @@ namespace API.Extensions
         {
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseSwaggerDocumentation();                    
+            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseHttpsRedirection();
 
             return app;
         }

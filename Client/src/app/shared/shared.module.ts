@@ -27,6 +27,7 @@ import { InputTextComponent } from './input-text/input-text.component';
       autoDismiss: true,
       closeButton: true,
     }),
+    RouterModule,
   ],
   exports: [
     MatMenuModule,
@@ -38,6 +39,7 @@ import { InputTextComponent } from './input-text/input-text.component';
     HttpClientModule,
     ToastrModule,
     InputTextComponent,
+    RouterModule,
   ],
 })
 export class SharedModule {}

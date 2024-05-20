@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -8,19 +7,14 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private _accountService: AccountService,
-    private _cookieService: CookieService
-  ) {}
+  title = 'Client';
+  constructor(private _accountService: AccountService) {}
   ngOnInit(): void {
     this.laodCurrentUser();
   }
 
   laodCurrentUser() {
     let token = localStorage.getItem('token');
-    if (!token) token = this._cookieService.get('token');
-    if (token) {
-      this._accountService.loadCurrentUser(token)?.subscribe();
-    }
+    this._accountService.loadCurrentUser(token).subscribe();
   }
 }

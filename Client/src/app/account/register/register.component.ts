@@ -40,10 +40,9 @@ export class RegisterComponent implements OnInit {
       displayName: this.registerForm?.get('displayName')?.value,
       password: this.registerForm?.get('password')?.value,
     };
-    this._service.register(user).subscribe((user) => {
-      if (user) {
-        this._router.navigateByUrl('/');
-      }
+    this._service.register(user).subscribe({
+      next: (_) => this._router.navigateByUrl('/'),
+      error: (error) => console.error(error),
     });
   }
 }
