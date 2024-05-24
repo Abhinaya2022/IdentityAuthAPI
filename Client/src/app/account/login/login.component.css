@@ -9,6 +9,7 @@
 .LoginForm {
   margin-top: 100px;
 }
+
 button {
   margin-right: 10%;
   float: right;
@@ -27,4 +28,8 @@ button {
 .btn-outline-secondary{
   border:none;
   color: whitesmoke;
+  width: auto;
+  background-color: transparent;
 }
+
+

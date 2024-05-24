@@ -1,0 +1,17 @@
+<div class="courses-list" *ngIf="course">
+  <div class="card">
+    <div class="card-img-wrapper">
+      <img class="card-img-top" [src]="course.img" alt="{{ course.name }}" />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ course.name }}</h5>
+      <h5 class="card-title">{{ course.price | currency:"INR" }}</h5>
+      <p class="card-text">{{ course.description }}</p>
+      <a
+        routerLink="/course/course-details/{{ course.id }}"
+        class="btn"
+        >View Course</a
+      >
+    </div>
+  </div>
+</div>

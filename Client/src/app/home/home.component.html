@@ -1,38 +1,70 @@
-<!-- <carousel [noPause]="true" [isAnimated]="true" style="margin-top: 0%;">
-  <slide>
-    <img src="assets/images/background.jpg" alt="First slide" style="display: block; width: 100%;">
-    <div class="carousel-caption d-none d-md-block">
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </div>
-  </slide>
-  <slide>
-    <img src="assets/images/background3.jpg" alt="Second slide" style="display: block; width: 100%;">
-    <div class="carousel-caption d-none d-md-block">
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </div>
-  </slide>
-  <slide>
-    <img src="assets/images/background2.avif" alt="Third slide" style="display: block; width: 100%;">
-    <div class="carousel-caption d-none d-md-block">
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </div>
+<!-- <carousel [noPause]="true" [isAnimated]="true" style="margin-top: 0%">
+  <slide *ngFor="let item of slideParams">
+    <a [href]="item.link" target="_blank">
+      <img
+        [src]="item.img"
+        alt="First slide"
+        style="display: block; width: 100%"
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h3>{{ item.heading }}</h3>
+        <p>{{ item.para }}</p>
+      </div>
+    </a>
   </slide>
 </carousel> -->
 
-<header>
-  <h1>Village Development Project</h1>
-</header>
-<section class="hero">
-  <div class="hero-content">
-    <h2>Empowering Villages for a Better Tomorrow</h2>
-    <p>
-      Join us in our mission to uplift rural communities through sustainable
-      development initiatives.
-    </p>
-    <a routerLink="/career" class="btn">Get Involved</a>
+<div class="content-wrapper">
+  <div class="hero">
+    <h1>Welcome to EdTech!</h1>
+    <p>Your one-stop solution for online learning.</p>
+    <p>Join us today and start learning from the best courses available online.</p>
+    <a
+      *ngIf="!(account.currentUser$ | async)"
+      class="btn btn-primary btn-lg"
+      routerLink="/account/register"
+      role="button"
+      >Get Started</a
+    >
+    <a
+      *ngIf="account.currentUser$ | async as User"
+      class="btn btn-primary btn-lg"
+      routerLink="/course/courses-list"
+      role="button"
+      >Courses</a
+    >
   </div>
-</section>
 
+  <div class="about">
+    <h2>About Us</h2>
+    <p>We are committed to providing the best online education to help you achieve your goals.</p>
+  </div>
+
+  <div class="features">
+    <h2>Features</h2>
+    <div class="feature-item">
+      <h3>Quality Content</h3>
+      <p>Our courses are created by industry experts to ensure you get the best learning experience.</p>
+    </div>
+    <div class="feature-item">
+      <h3>Flexible Learning</h3>
+      <p>Learn at your own pace, from anywhere, at any time.</p>
+    </div>
+    <div class="feature-item">
+      <h3>Certification</h3>
+      <p>Receive recognized certificates upon course completion to boost your career prospects.</p>
+    </div>
+  </div>
+
+  <div class="testimonials">
+    <h2>What Our Students Say</h2>
+    <div class="testimonial-item">
+      <p>"EdTech has transformed my career. The courses are well-structured and easy to follow."</p>
+      <p>- John Doe</p>
+    </div>
+    <div class="testimonial-item">
+      <p>"The flexibility of learning at my own pace has been a game-changer for me."</p>
+      <p>- Jane Smith</p>
+    </div>
+  </div>
+</div>

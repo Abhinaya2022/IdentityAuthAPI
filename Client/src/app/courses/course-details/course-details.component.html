@@ -1,0 +1,40 @@
+<div class="course-details-container" *ngIf="course">
+  <div class="course-header">
+    <img class="course-image" [src]="course.img" alt="Course Image" />
+    <div class="course-title">
+      <h1>{{ course.price | currency : "INR" }}</h1>
+      <h1>{{ course.name }}</h1>
+      <p>{{ course.description }}</p>
+      <button (click)="('Enroll')" class="btn">Buy Now</button>
+    </div>
+  </div>
+
+  <div class="course-content">
+    <h2>Course Content</h2>
+    <ul>
+      <li>Introduction to Web Development</li>
+      <li>HTML & CSS Basics</li>
+      <li>JavaScript Essentials</li>
+      <li>Frameworks and Libraries</li>
+      <li>Project: Build a Responsive Website</li>
+    </ul>
+  </div>
+
+  <div class="course-instructor">
+    <h2>Instructor</h2>
+    <div class="instructor-details">
+      <img
+        class="instructor-image"
+        src="https://via.placeholder.com/400x200?text=Instructor"
+        alt="Instructor Image"
+      />
+      <div class="instructor-info">
+        <h3>Instructor Name : Rahul Kumar Yadav</h3>
+        <p>
+          Experienced web developer with over 10 years of experience in the
+          industry. Expert in HTML, CSS, JavaScript, and popular frameworks.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { AccountService } from 'src/app/account/account.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +8,19 @@ import { AccountService } from 'src/app/account/account.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  constructor(public service: AccountService) {}
+  modalRef?: BsModalRef;
+  constructor(
+    public service: AccountService,
+    private modalService: BsModalService
+  ) {}
 
   navbarMenus: any = [
     { name: 'Home', path: '' },
-    { name: 'Career', path: 'career' },
+    { name: 'Courses', path: 'course/courses-list' },
+    { name: 'Contact', path: 'career' },
   ];
+
+  openModal(template: TemplateRef<void>) {
+    this.modalRef = this.modalService.show(template);
+  }
 }

@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { InputTextComponent } from './input-text/input-text.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [PopupComponent, InputTextComponent],
@@ -28,6 +29,7 @@ import { InputTextComponent } from './input-text/input-text.component';
       closeButton: true,
     }),
     RouterModule,
+    ModalModule.forRoot(),
   ],
   exports: [
     MatMenuModule,

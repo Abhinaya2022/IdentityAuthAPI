@@ -1,11 +1,154 @@
-/* You can add global styles to this file, and also import other style files */
-
-html,
-body {
+/* Global styles */
+html, body {
   height: 100%;
-}
-body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  /* background-image: url("assets/images/background.jpg");   */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Root component */
+app-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 2em;
+}
+
+/* Footer */
+.footer {
+  background: #f1f1f1;
+  text-align: center;
+  padding: 1em 0;
+}
+
+/* Hero Section */
+.hero {
+  background: #f9f9f9;
+  padding: 2em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 2.5em;
+  color: #333;
+}
+
+.hero p {
+  margin: 0.5em 0;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.hero button {
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+.hero button:hover {
+  background-color: #0056b3;
+}
+
+/* About Us Section */
+.about {
+  background: #fff;
+  padding: 2em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.about h2 {
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  color: #333;
+}
+
+.about p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+/* Features Section */
+.features {
+  background: #f1f1f1;
+  padding: 2em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.features h2 {
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  color: #333;
+}
+
+.feature-item {
+  margin-bottom: 1.5em;
+}
+
+.feature-item h3 {
+  font-size: 1.5em;
+  color: #007bff;
+}
+
+.feature-item p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+/* Testimonials Section */
+.testimonials {
+  background: #fff;
+  padding: 2em;
+  text-align: center;
+}
+
+.testimonials h2 {
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  color: #333;
+}
+
+.testimonial-item {
+  margin-bottom: 1.5em;
+}
+
+.testimonial-item p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.testimonial-item p:last-child {
+  font-weight: bold;
+  color: #333;
+}
+
+
+.btn {
+    cursor: pointer;
+    width: 200px;
+    color:#f9f9f9;
+    border-radius: 200px;
+    background-color: rgb(102 116 204);
+}
+
+.btn:hover{
+    background-color: rgba(42, 61, 235, 0.674);
+    color: #f9f9f9;
 }

@@ -27,4 +27,6 @@ button {
 .btn-outline-secondary {
   border: none;
   color: whitesmoke;
+  width: auto;
+  background-color: transparent;
 }

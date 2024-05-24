@@ -35,7 +35,6 @@ namespace API.Extensions
                         ValidIssuer = config["Token:Issuer"],
                         ValidateIssuer = true,
                         ValidateAudience = false,
-                        RoleClaimType = "roles"
                     };
                     options.Events = new JwtBearerEvents
                     {

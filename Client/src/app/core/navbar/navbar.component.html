@@ -20,7 +20,7 @@
     >
   </nav>
   <div class="d-flex align-items-center">
-    <ng-container> 
+    <ng-container>
       <div
         *ngIf="service.currentUser$ | async as User"
         class="dropdown ms-3 me-5"
@@ -35,7 +35,7 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item type="button" (click)="openModal(template)">
             <mat-icon>edit</mat-icon>
             <span>Profile</span>
           </button>
@@ -52,3 +52,24 @@
     </ng-container>
   </div>
 </header>
+
+<ng-template #template>
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title pull-left">Profile Details</h4>
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <p><b>Name:</b> {{ "Rahul Kumar Yadav" }}</p>
+      <p><b>Email:</b> {{ "rahul@test.com" }}</p>
+      <p><b>Place:</b> {{ "Hyderabd" }}</p>
+    </div>
+  </div>
+</ng-template>
