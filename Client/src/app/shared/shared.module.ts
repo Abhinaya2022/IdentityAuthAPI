@@ -14,6 +14,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PagerComponent } from './pager/pager.component';
 import { PagingHeaderComponent } from './paging-header/paging-header.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BreadcrumbModule } from 'xng-breadcrumb';
 @NgModule({
   declarations: [
     PopupComponent,
@@ -37,7 +38,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     }),
     RouterModule,
     ModalModule.forRoot(),
-    PaginationModule.forRoot(),
+    PaginationModule.forRoot(),   
   ],
   exports: [
     MatMenuModule,

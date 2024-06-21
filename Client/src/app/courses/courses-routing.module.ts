@@ -6,17 +6,21 @@ import { CoursesCartComponent } from './courses-cart/courses-cart.component';
 
 const routes: Routes = [
   {
-    path: 'course-details/:id',
-    component: CourseDetailsComponent,
+    path: '',
+    component: CoursesListComponent,
+    data: { breadcrumb: 'courses' },
   },
   {
-    path: 'courses-list',
-    component: CoursesListComponent,
+    path: 'course-details/:id',
+    component: CourseDetailsComponent,
+    data: { breadcrumb: { alias: 'course' } },
   },
   {
     path: 'courses-cart',
     component: CoursesCartComponent,
+    data: { breadcrumb: 'course cart' },
   },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({

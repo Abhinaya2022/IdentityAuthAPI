@@ -15,6 +15,7 @@ const routes: Routes = [
     path: 'career',
     canActivate: [authGuard],
     component: CareerComponent,
+    data: { breadcrumb: 'Career' },
   },
   {
     path: 'account',
@@ -23,7 +24,7 @@ const routes: Routes = [
       import('./account/account.module').then((x) => x.AccountModule),
   },
   {
-    path: 'course',
+    path: 'courses',
     canActivate: [authGuard],
     loadChildren: () =>
       import('./courses/courses.module').then((x) => x.CoursesModule),

@@ -9,7 +9,6 @@ import { HomeModule } from './home/home.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './core/_interceptors/error.interceptor';
 import { CookieService } from 'ngx-cookie-service';
-import { LoaderInterceptor } from '@abhinaya2022/audree-common-lib/projects/audree-lib/src/lib/_interceptor/loader.interceptor';
 
 @NgModule({
   declarations: [AppComponent],

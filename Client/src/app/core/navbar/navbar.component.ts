@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
   navbarMenus: any = [
     { name: 'Home', path: '' },
-    { name: 'Courses', path: 'course/courses-list' },
+    { name: 'Courses', path: 'courses' },
     { name: 'Contact', path: 'career' },
   ];
 

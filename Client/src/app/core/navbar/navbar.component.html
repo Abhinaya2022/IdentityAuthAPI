@@ -21,7 +21,7 @@
   </nav>
   <div class="d-flex align-items-center">
     <ng-container *ngIf="service.currentUser$ | async as User">
-      <a class="position-relative" routerLink="/course/courses-cart">
+      <a class="position-relative" routerLink="/courses/courses-cart">
         <mat-icon class="me-5 mat-2x">shopping_cart</mat-icon>
         <div class="cart-no">{{ service.cartValue }}</div>
       </a>

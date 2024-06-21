@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
 import { CoursesService } from './courses/courses.service';
 import { CookieService } from 'ngx-cookie-service';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,12 @@ export class AppComponent implements OnInit {
   user: any;
   constructor(
     private _accountService: AccountService,
-    private _courseService: CoursesService
+    private _courseService: CoursesService,
+    private _bredCrumbServ:BreadcrumbService
   ) {}
   ngOnInit(): void {
     this.laodCurrentUser();
+    this._bredCrumbServ.set('Home/Course/Courses','Courses')
   }
 
   laodCurrentUser() {
