@@ -7,6 +7,6 @@ namespace Core.Contracts
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetAsync(int id);
         Task<T> GetAsync(string name);
-
+        Task AddAsync<Entity>(Entity entity) where Entity : class;
     }
 }

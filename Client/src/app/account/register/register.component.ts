@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Register } from 'src/app/shared/Models/Account/register';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
+import { CoursesService } from 'src/app/courses/courses.service';
 
 @Component({
   selector: 'app-register',
@@ -11,13 +12,15 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  isSubmitted: boolean = false;
   complexPassword =
     "(?=^.{6,10}$)(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*s).*$";
 
   constructor(
     private _fb: FormBuilder,
     private _service: AccountService,
-    private _router: Router
+    private _router: Router,
+    private _courseServ: CoursesService
   ) {}
   ngOnInit(): void {
     this.initailizeTheForm();
@@ -35,6 +38,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    if (this.registerForm.invalid) {
+      this.isSubmitted = true;
+      return;
+    }
     let user: Register = {
       email: this.registerForm?.get('email')?.value,
       displayName: this.registerForm?.get('displayName')?.value,
@@ -43,6 +50,9 @@ export class RegisterComponent implements OnInit {
     this._service.register(user).subscribe({
       next: (_) => this._router.navigateByUrl('/'),
       error: (error) => console.error(error),
+      complete: () => {
+        this._courseServ.loadCurrentCart(user.email);
+      },
     });
   }
 }

@@ -17,3 +17,24 @@ a {
     color: orange;
   }
 }
+
+.cart-no {
+  position: absolute;
+  min-height: 21px;
+  min-width: 21px;
+  border-radius: 50px;
+  background: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+  color: white;
+  text-align: center;
+  top: -18px;
+  right: 41px;
+  width: 1px;
+  height: 1px;
+}
+
+a {
+  text-decoration: none;
+  &.active {
+    color: orange;
+  }
+}

@@ -5,7 +5,7 @@
       <h1>{{ course.price | currency : "INR" }}</h1>
       <h1>{{ course.name }}</h1>
       <p>{{ course.description }}</p>
-      <button (click)="('Enroll')" class="btn">Buy Now</button>
+      <button (click)="enroll()" class="btn">Buy Now</button>
     </div>
   </div>
 

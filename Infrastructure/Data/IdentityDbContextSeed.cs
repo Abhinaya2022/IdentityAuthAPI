@@ -13,9 +13,8 @@ namespace Infrastructure.Data
                 var roles = new List<AppRole>
                                 {
                                     new() { Name = "Admin"},
-                                    new() { Name = "Member"},
-                                    new() { Name = "Reviewer"},
-                                    new() { Name = "Approver"},
+                                    new() { Name = "Student"},
+                                    new() { Name = "Instructor"},
                                 };
 
                 for (int i = 0; i < roles.Count; i++)
@@ -23,8 +22,6 @@ namespace Infrastructure.Data
                     await roleManager.CreateAsync(roles[i]);
                 };
             }
-
-
 
             if (!userManager.Users.Any())
             {
@@ -49,7 +46,7 @@ namespace Infrastructure.Data
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Member");
+                    await userManager.AddToRoleAsync(user, "Student");
                 }
 
                 AppUser admin = new AppUser() { UserName = "admin@test.com", Email = "admin@test.com",DisplayName="Admin", CreatedOn = DateTime.UtcNow };

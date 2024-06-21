@@ -20,13 +20,12 @@
     >
   </nav>
   <div class="d-flex align-items-center">
-    <ng-container>
-      <div
-        *ngIf="service.currentUser$ | async as User"
-        class="dropdown ms-3 me-5"
-        style="cursor: pointer"
-        dropdown
-      >
+    <ng-container *ngIf="service.currentUser$ | async as User">
+      <a class="position-relative" routerLink="/course/courses-cart">
+        <mat-icon class="me-5 mat-2x">shopping_cart</mat-icon>
+        <div class="cart-no">{{ service.cartValue }}</div>
+      </a>
+      <div class="dropdown ms-3 me-5" style="cursor: pointer" dropdown>
         <button
           mat-icon-button
           [matMenuTriggerFor]="menu"
@@ -67,8 +66,8 @@
   </div>
   <div class="modal-body">
     <div>
-      <p><b>Name:</b> {{ "Rahul Kumar Yadav" }}</p>
-      <p><b>Email:</b> {{ "rahul@test.com" }}</p>
+      <p><b>Name:</b> {{ user?.displayName }}</p>
+      <p><b>Email:</b> {{ user?.email }}</p>
       <p><b>Place:</b> {{ "Hyderabd" }}</p>
     </div>
   </div>

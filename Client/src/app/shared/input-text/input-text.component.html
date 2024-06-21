@@ -5,7 +5,7 @@
     [formControl]="control"
     class="form-control"
     [ngClass]="
-      control.touched || control.dirty
+      control.touched || control.dirty || submitted
         ? control.invalid
           ? 'is-invalid'
           : 'is-valid'
@@ -13,11 +13,13 @@
     "
   />
   <label for="floatingInput">{{ label }}</label>
-  <div class="invalid-feedback">
-    <div *ngIf="control.hasError('required')">{{ label }} is required</div>
-    <div *ngIf="control.hasError('email')">Invalid Email</div>
-    <div *ngIf="control.hasError('pattern')">
-      {{ label }} not enough complex
+  <ng-container *ngIf="control.touched || control.dirty || submitted">
+    <div class="invalid-feedback">
+      <div *ngIf="control.hasError('required')">{{ label }} is required</div>
+      <div *ngIf="control.hasError('email')">Invalid Email</div>
+      <div *ngIf="control.hasError('pattern')">
+        {{ label }} not enough complex
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

@@ -5,13 +5,21 @@
     </div>
     <div class="card-body">
       <h5 class="card-title">{{ course.name }}</h5>
-      <h5 class="card-title">{{ course.price | currency:"INR" }}</h5>
+      <h5 class="card-title">{{ course.price | currency : "INR" }}</h5>
       <p class="card-text">{{ course.description }}</p>
-      <a
-        routerLink="/course/course-details/{{ course.id }}"
-        class="btn"
-        >View Course</a
-      >
+      <div class="row">
+        <div class="co">
+          <button
+            (click)="addToCart(course.id)"
+            class="btn btn-secondry"
+          >
+            Add To Cart
+          </button>
+          <a routerLink="/course/course-details/{{ course.id }}" class="btn">
+            View Course
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

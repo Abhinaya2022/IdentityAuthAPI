@@ -11,9 +11,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { InputTextComponent } from './input-text/input-text.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { PagerComponent } from './pager/pager.component';
+import { PagingHeaderComponent } from './paging-header/paging-header.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 @NgModule({
-  declarations: [PopupComponent, InputTextComponent],
+  declarations: [
+    PopupComponent,
+    InputTextComponent,
+    PagerComponent,
+    PagingHeaderComponent,
+  ],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -30,6 +37,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     }),
     RouterModule,
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
   ],
   exports: [
     MatMenuModule,
@@ -42,6 +50,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ToastrModule,
     InputTextComponent,
     RouterModule,
+    PagerComponent,
+    PagingHeaderComponent,
   ],
 })
 export class SharedModule {}

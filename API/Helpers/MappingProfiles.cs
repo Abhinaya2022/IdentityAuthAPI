@@ -1,6 +1,7 @@
 ﻿using API.Dto_s;
 using AutoMapper;
 using Core.Entities;
+using Core.Entities.Course;
 
 namespace API.Helpers
 {
@@ -18,6 +19,8 @@ namespace API.Helpers
                                 .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address.City))
                                 .ForMember(dest => dest.ZipCode, opt => opt.MapFrom(src => src.Address.ZipCode));
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<Course, CourseDto>()
+                                .ForMember(dest => dest.Contents, opt => opt.MapFrom(src => src.Contents)).ReverseMap();
 
         }
     }

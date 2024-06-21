@@ -11,14 +11,16 @@ namespace API.Extensions
     {
         public static IServiceCollection AddIdentityService(this IServiceCollection services, IConfiguration config)
         {
+
+            services.AddIdentityApiEndpoints<AppUser>().AddEntityFrameworkStores<IdentityDbContext>();
             services.AddIdentityCore<AppUser>(options =>
             {
                 // Add identity options here
-                options.Password.RequiredLength = 4;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
             })
              .AddRoles<AppRole>()
              .AddRoleManager<RoleManager<AppRole>>()
@@ -36,21 +38,6 @@ namespace API.Extensions
                         ValidateIssuer = true,
                         ValidateAudience = false,
                     };
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            var accessToken = context.Request.Query["access_token"];
-                            var path = context.HttpContext.Request.Path;
-                            if (string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
-                            {
-                                context.Token = accessToken;
-                            }
-
-                            return Task.CompletedTask;
-                        }
-                    };
-
                 });
 
             services.AddAuthorization(options =>

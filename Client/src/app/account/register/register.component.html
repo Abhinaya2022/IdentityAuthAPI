@@ -6,27 +6,31 @@
         <app-input-text
           [type]="'text'"
           [label]="'Email'"
+          [isSubmitted]="isSubmitted"
           formControlName="email"
         ></app-input-text>
 
         <app-input-text
           [type]="'text'"
           [label]="'Display Name'"
+          [isSubmitted]="isSubmitted"
           formControlName="displayName"
         ></app-input-text>
 
         <app-input-text
           [type]="'password'"
           [label]="'Password'"
+          [isSubmitted]="isSubmitted"
           formControlName="password"
         ></app-input-text>
       </div>
       <a routerLink="/account/login" class="btn btn-outline-secondary ms-5 my-3"
         >Have an Account?</a
       >
-      <button class="btn btn-success my-3" [disabled]="registerForm.invalid">
+      <button class="btn btn-success my-3">
         Sign-Up
       </button>
     </form>
   </div>
 </ng-container>
+

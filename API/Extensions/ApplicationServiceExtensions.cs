@@ -2,6 +2,8 @@
 using Carter;
 using Core.Contracts;
 using Infrastructure.Data;
+using Infrastructure.Data.CourseData;
+using Infrastructure.Implementaions;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,10 @@ namespace API.Extensions
             {
                 options.UseSqlite(config.GetConnectionString("IdentityConnection"));
             });
+            services.AddDbContext<CourseDbContext>(options =>
+            {
+                options.UseSqlite(config.GetConnectionString("CourseConnection"));
+            });
 
             services.AddCors(options =>
             {
@@ -40,6 +46,8 @@ namespace API.Extensions
             });
 
             services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
@@ -55,10 +63,8 @@ namespace API.Extensions
 
                     return new BadRequestObjectResult(errorResponse);
                 };
-            });
-            services.AddControllers();
+            });          
 
-            services.AddCarter();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
@@ -73,8 +79,8 @@ namespace API.Extensions
         {
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseSwaggerDocumentation();                    
-            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 

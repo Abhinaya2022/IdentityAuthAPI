@@ -1,5 +1,23 @@
-<div class="container-flex mt-5 row">
+<div class="container mt-5 ms-5 row" *ngIf="courses.length > 0">
+  <app-paging-header
+    [pageNumber]="pageNumber"
+    [pageSize]="pageSize"
+    [totalCount]="totalCount"
+  >
+  </app-paging-header>
   <div class="col-4" *ngFor="let course of courses">
     <app-courses-card [course]="course"></app-courses-card>
   </div>
+
+  <app-pager
+    [pageSize]="pageSize"
+    [totalCount]="totalCount"
+    (pageChanged)="onPageChanged($event)"
+  ></app-pager>
 </div>
+
+<ng-container *ngIf="courses.length === 0">
+  <div class="container mt-5 fs-5 text-center">
+    <p>No Courses Available</p>
+  </div>
+</ng-container>

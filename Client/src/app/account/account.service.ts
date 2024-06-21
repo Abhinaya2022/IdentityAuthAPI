@@ -4,23 +4,38 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { User } from '../shared/Models/Account/user';
 import { Router } from '@angular/router';
+import { CoursesService } from '../courses/courses.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   url = environment.baseUrl;
+  cartValue: number = 0;
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private _http: HttpClient, private _router: Router) {}
+  constructor(
+    private _http: HttpClient,
+    private _router: Router,
+    private _courseService: CoursesService
+  ) {}
+
+  updateCartValue() {
+    this._courseService.$cartValue.subscribe({
+      next: (updatedCart) => {
+        this.cartValue = updatedCart.length;
+      },
+    });
+  }
 
   login(user: any) {
     return this._http.post<User>(this.url + 'login', user).pipe(
       map((user: any) => {
         if (user) {
           localStorage.setItem('token', user.token);
-          this.currentUserSource.next(user);
+          this.currentUserSource.next(user);          
+          return user;
         }
       })
     );

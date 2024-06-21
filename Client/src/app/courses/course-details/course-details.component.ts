@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../courses.service';
+import { AccountService } from 'src/app/account/account.service';
 
 @Component({
   selector: 'app-course-details',
@@ -16,10 +17,17 @@ export class CourseDetailsComponent implements OnInit {
     name: string;
     description: string;
   };
+  user: any;
   constructor(
     private _route: ActivatedRoute,
-    private _service: CoursesService
-  ) {}
+    private _service: CoursesService,
+    private _accountServ: AccountService,
+    private _router: Router
+  ) {
+    this._accountServ.currentUser$.subscribe({
+      next: (user) => (this.user = user),
+    });
+  }
 
   ngOnInit(): void {
     this.courseId = +this._route.snapshot.params['id'];
@@ -34,5 +42,10 @@ export class CourseDetailsComponent implements OnInit {
         }
       },
     });
+  }
+
+  enroll() {
+    this._service.addToCart(this.courseId, this.user);
+    this._router.navigateByUrl('/course/courses-cart');
   }
 }

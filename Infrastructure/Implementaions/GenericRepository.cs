@@ -1,14 +1,20 @@
 ﻿using Core.Contracts;
 using Core.Entities;
 using Infrastructure.Data;
+using Infrastructure.Data.CourseData;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Implementaions
 {
-    public class GenericRepository<T>(IdentityDbContext context) : IGenericRepository<T>
+    public class GenericRepository<T>(CourseDbContext context) : IGenericRepository<T>
         where T : AppUser
     {
-        private readonly IdentityDbContext _context = context;
+        private readonly CourseDbContext _context = context;
+
+        public async Task AddAsync<Entity>(Entity entity) where Entity : class
+        {
+            await _context.Set<Entity>().AddAsync(entity);
+        }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
